@@ -41,8 +41,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-        node-version: 'latest'
-        cache: 'npm'
+          node-version: 'latest'
+          cache: 'npm'
       - run: npm ci --prefer-offline   # <-- indispensable
       - run: npm test
 
