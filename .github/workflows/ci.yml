@@ -80,6 +80,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Use a personal access token (PAT) stored in repository secrets so the workflow
+          # can push tags and create releases. Create a secret named `RELEASE_TOKEN`
+          # with repo scope (or appropriate permissions) and add it in the repo settings.
+          token: ${{ secrets.RELEASE_TOKEN }}
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: 'latest'
@@ -90,4 +95,6 @@ jobs:
       - name: Release
         run: npx --yes release-it --ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use the PAT so git push and tag operations are permitted. Ensure you add
+          # `RELEASE_TOKEN` to repository secrets (repo-level) before running this workflow.
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
